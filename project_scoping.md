@@ -17,8 +17,8 @@
 
 #### Sub-problems:
 * Development plan
-  * [Waterfall model](https://en.wikipedia.org/wiki/Waterfall_model)
+  * Gantt Charts
 * Molecule handling
-  * SMILE strings? [add link]()
+  * SMILES strings? [add link]()
 
 
