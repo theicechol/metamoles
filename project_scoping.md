@@ -9,8 +9,8 @@
   
 
 #### Databases:
-<>
-<>
+<> [add link](https://metacyc.org/)
+<> [add link](https://www.genome.jp/kegg/)
 <>
 <>
 
