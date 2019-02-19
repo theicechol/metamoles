@@ -10,3 +10,6 @@ Aim to utilize data science and software engineering intuition to find, and pred
 #### Phil
 #### Stephen
 #### Yeon Mi
+
+## Use Cases
+
