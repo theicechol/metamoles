@@ -13,3 +13,6 @@ Aim to utilize data science and software engineering intuition to find, and pred
 
 ## Use Cases
 
+For the given targeted molecules, we want to retrun the list of enzyme that can lead to the targeted molecules together with the reaction pathway.
+Input: molecules
+Output: promiscuous enzymes and pathways
