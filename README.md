@@ -14,7 +14,7 @@ Aim to utilize data science and software engineering intuition to find, and pred
 ## Use Cases
 
 **Basic**
-- *Search for enzyme to create input molecule:* This use cases starts when a user inputs the PubChem ID of a molecule into the Metamoles package. This use case ends when a prediction about an enzyme that could produce the input molecule is made.
+- **Search for enzyme to create input molecule:** This use cases starts when a user inputs the PubChem ID of a molecule into the Metamoles package. This use case ends when a prediction about an enzyme that could produce the input molecule is made.
 Components:
   - User input
     -ID
@@ -66,3 +66,6 @@ Components:
 - Report experimental outcomes (positive and negative if people use our prediction)
 - Offer different ML models or prediction methods (edited) 
 - Included non-promismuous enzyme in the reaction search (or some non-enzymatic pathway)
+
+![Outline_1](https://github.com/theicechol/metamoles/blob/master/figures/Outline_1.png)
+![Outline_2](https://github.com/theicechol/metamoles/blob/master/figures/Outline_2.png)
