@@ -1,0 +1,38 @@
+﻿,CPD,description
+1,cpd:C00001,H2O; Water
+2,cpd:C00002,ATP; Adenosine 5'-triphosphate
+3,cpd:C00003,NAD+; NAD; Nicotinamide adenine dinucleotide; DPN; Diphosphopyridine nucleotide; Nadide; beta-NAD+
+4,cpd:C00004,NADH; DPNH; Reduced nicotinamide adenine dinucleotide
+5,cpd:C00005,NADPH; TPNH; Reduced nicotinamide adenine dinucleotide phosphate
+6,cpd:C00006,NADP+; NADP; Nicotinamide adenine dinucleotide phosphate; beta-Nicotinamide adenine dinucleotide phosphate; TPN; Triphosphopyridine nucleotide; beta-NADP+
+7,cpd:C00007,Oxygen; O2
+8,cpd:C00008,ADP; Adenosine 5'-diphosphate
+9,cpd:C00009,Orthophosphate; Phosphate; Phosphoric acid; Orthophosphoric acid
+10,cpd:C00010,CoA; Coenzyme A; CoA-SH
+11,cpd:C00011,CO2; Carbon dioxide
+12,cpd:C00012,Peptide
+13,cpd:C00013,Diphosphate; Diphosphoric acid; Pyrophosphate; Pyrophosphoric acid; PPi
+14,cpd:C00014,Ammonia; NH3
+15,cpd:C00015,UDP; Uridine 5'-diphosphate
+16,cpd:C00016,FAD; Flavin adenine dinucleotide
+17,cpd:C00017,Protein
+18,cpd:C00018,Pyridoxal phosphate; Pyridoxal 5-phosphate; Pyridoxal 5'-phosphate; PLP
+19,cpd:C00019,S-Adenosyl-L-methionine; S-Adenosylmethionine; AdoMet; SAM
+20,cpd:C00020,AMP; Adenosine 5'-monophosphate; Adenylic acid; Adenylate; 5'-AMP; 5'-Adenylic acid; 5'-Adenosine monophosphate; Adenosine 5'-phosphate
+21,cpd:C00021,S-Adenosyl-L-homocysteine; S-Adenosylhomocysteine
+22,cpd:C00023,Iron
+23,cpd:C00027,Hydrogen peroxide; H2O2; Oxydol
+24,cpd:C00028,Acceptor; Hydrogen-acceptor; A; Oxidized donor
+25,cpd:C00030,Reduced acceptor; AH2; Hydrogen-donor; Donor
+26,cpd:C00032,Heme; Haem; Protoheme; Heme B; Protoheme IX
+27,cpd:C00034,Manganese
+28,cpd:C00050,Metal
+29,cpd:C00061,FMN; Riboflavin-5-phosphate; Flavin mononucleotide
+30,cpd:C00070,Copper; Cu+; Cu2+; Cu(II)
+31,cpd:C00080,H+; Hydron
+32,cpd:C00255,"Riboflavin; Lactoflavin; 7,8-Dimethyl-10-ribitylisoalloxazine; Vitamin B2"
+33,cpd:C01007,Reduced riboflavin
+34,cpd:C01352,FADH2
+35,cpd:C01382,Iodine; I2; Diiodine
+36,cpd:C02745,Reduced flavodoxin
+37,cpd:C02869,Oxidized flavodoxin
