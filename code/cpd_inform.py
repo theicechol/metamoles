@@ -1,3 +1,5 @@
+# create a function that return the general information of that compound e.g., number of each atom, MW, unsaturation
+
 from rdkit import Chem
 from rdkit.Chem import AllChem
 
@@ -28,7 +30,7 @@ def DoU(mol):
     P = count_P(mol)
     S = count_S(mol)
     X = count_X(mol)
-    return int((2*C+2+N+P-X-H)/2)
+    return float((2*C+2+N+P-X-H)/2)
 
 from rdkit.Chem.Descriptors import MolWt
 
@@ -39,13 +41,13 @@ def cpd_inform(SMILES):
 X, Degree of Unsaturation and Molecular Weight"""
     info = {}
     mol = Chem.MolFromSmiles(SMILES)
-    info['n_C'] = count_C(mol)
-    info['n_H'] = count_H(mol)
-    info['n_O'] = count_O(mol)
-    info['n_N'] = count_N(mol)
-    info['n_P'] = count_P(mol)
-    info['n_S'] = count_S(mol)
-    info['n_X'] = count_X(mol)
+    info['n_C'] = float(count_C(mol))
+    info['n_H'] = float(count_H(mol))
+    info['n_O'] = float(count_O(mol))
+    info['n_N'] = float(count_N(mol))
+    info['n_P'] = float(count_P(mol))
+    info['n_S'] = float(count_S(mol))
+    info['n_X'] = float(count_X(mol))
     info['DoU'] = DoU(mol)
     info['MW'] = MolWt(mol)
     

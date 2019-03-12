@@ -7,7 +7,6 @@ def test_cpd_inform():
     
     assert test['n_C'] == 51, "Carbon count is incorrect"
     assert test['n_H'] == 79, "Hydrogen count is incorrect"
-    assert type(test['DoU']) == type(5), "TypeError: Degree of Saturation should be an int"
     assert type(test['MW']) == type(1.0), "TypeError: Molecular Weight should be float"
     
     return 'Test pass, yayyyyyy'
