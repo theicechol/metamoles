@@ -23,7 +23,7 @@ def sid_to_smiles(sid):
     return compound.isomeric_smiles, cid
 
 
-def kegg_df_to_smiles(kegg_df):
+def kegg_df_to_smiles(kegg_df, column_name):
     """
     Args:
         kegg_df : pandas dataframe with SID numbers in the third column
@@ -40,7 +40,7 @@ def kegg_df_to_smiles(kegg_df):
 
     for i in range(len(kegg_df)):
         # cell index of desired SID
-        sid = kegg_df.iloc[i, 2]
+        sid = kegg_df.loc[i, column_name]
         try:
             smile_result = sid_to_smiles(sid)[0]
             res.append(smile_result)
@@ -52,9 +52,9 @@ def kegg_df_to_smiles(kegg_df):
             unsuccessful_list.append(sid)
             pass
 
-    kegg_df.insert(3, column='CID', value=cid_list)
+    kegg_df.insert(0, column='CID', value=cid_list)
     # Change this 2 to the number where the smiles column should be
-    kegg_df.insert(4, column='SMILES', value=res)
+    kegg_df.insert(1, column='SMILES', value=res)
     # kegg_df.to_csv(r'../datasets/df_cleaned_kegg_with_smiles.csv')
 
     return kegg_df, unsuccessful_list
