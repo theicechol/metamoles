@@ -67,3 +67,6 @@ Components:
 
 ![Outline_1](https://github.com/theicechol/metamoles/blob/master/figures/Outline_1.png)
 ![Outline_2](https://github.com/theicechol/metamoles/blob/master/figures/Outline_2.png)
+![function_outline](https://github.com/theicechol/metamoles/blob/master/figures/function_flowchart.png)
+
+funciton outline will be edited with correct function names and better outlook! 
