@@ -39,8 +39,8 @@ def fingerprint_products(input_df): #fingerprints all products in a given df
         mol_list.append(Chem.rdmolfiles.MolFromSmiles(row['SMILES'])) #get mols from SMILES and add mols to list
         fp_list.append(FingerprintMols.FingerprintMol(Chem.rdmolfiles.MolFromSmiles(row['SMILES']))) #get fingerprints from mols and and fingerprints to list
 
-    input_df.insert(6, column='Mol', value=mol_list)
-    input_df.insert(7, column='Fingerprint', value= fp_list)
+    input_df['Mol'] = mol_list
+    input_df['Fingerprint'] = fp_list
 
     return input_df
 
