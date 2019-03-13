@@ -44,28 +44,28 @@ def fingerprint_products(input_df): #fingerprints all products in a given df
 
     return input_df
 
-def split_by_enzyme(input_df):
-    '''From the input dataframe, makes a set of unique enzmyes from the KEGG
-    entry column. For each unique enzyme, makes an enzyme dataframe and fills it
-    with all products in the input dataframe that are made by the unique enzyme.
-    After filling the enzyme dataframe, adds it to a list of enzyme dataframes.
-    Returns the list of unique enzyme dataframes.'''
-    unique_enzymes = set(input_df['entry'].unique())
-
-    enzyme_df_list = []
-
-    for entry in unique_enzymes: #for each unique enzyme in the input dataframe...
-
-        enzyme_df = pd.DataFrame(columns=input_df.columns) #...initialize a new dataframe with the same columns as the input dataframe...
-
-        for index, row in input_df.iterrows(): #...iterate through the input dataframe...
-
-            if row['entry'] == entry: #... and add product rows that correspond to the unique enzyme entry...
-                enzyme_df.loc[index] = row
-
-        enzyme_df_list.append(enzyme_df) #...then add the completed dataframe of unique enzyme products to a list
-
-    return enzyme_df_list #return list of dataframes
+# def split_by_enzyme(input_df):
+#     '''From the input dataframe, makes a set of unique enzmyes from the KEGG
+#     entry column. For each unique enzyme, makes an enzyme dataframe and fills it
+#     with all products in the input dataframe that are made by the unique enzyme.
+#     After filling the enzyme dataframe, adds it to a list of enzyme dataframes.
+#     Returns the list of unique enzyme dataframes.'''
+#     unique_enzymes = set(input_df['entry'].unique())
+#
+#     enzyme_df_list = []
+#
+#     for entry in unique_enzymes: #for each unique enzyme in the input dataframe...
+#
+#         enzyme_df = pd.DataFrame(columns=input_df.columns) #...initialize a new dataframe with the same columns as the input dataframe...
+#
+#         for index, row in input_df.iterrows(): #...iterate through the input dataframe...
+#
+#             if row['entry'] == entry: #... and add product rows that correspond to the unique enzyme entry...
+#                 enzyme_df.loc[index] = row
+#
+#         enzyme_df_list.append(enzyme_df) #...then add the completed dataframe of unique enzyme products to a list
+#
+#     return enzyme_df_list #return list of dataframes
 
 def sim_i_j(row_i, row_j):
     """For two given rows of a dataframe, use the rdkit fingerprints to compute
@@ -95,20 +95,24 @@ def sim_metric(input_df):
     return metric
 
 def calculate_dist(input_df):
-    '''Main method, takes an input dataframe and builds and returns a master 
+    '''Main method, takes an input dataframe and builds and returns a master
     dataframe which is the original dataframe, with three additional columns,
     an rdkit Mol column, an rdkit Fingerprint column, and a column which
     describes the average distance of a product row to all the products of the
     associated enzyme entry. Requires the KEGG enzyme entry column to be named 'entry'
 	and the SMILES string column to be named 'SMILES' '''
 
-    input_df = fingerprint_products(input_data(input_df))    #expand input df: generate mols from SMILES then generate fingerprints from mols, adding columns for each
+    master_df = fingerprint_products(input_data(input_df))    #expand input df: generate mols from SMILES then generate fingerprints from mols, adding columns for each
 
-    enzyme_df_list = split_by_enzyme(input_df)    #split expanded df by rows, grouped by enzyme entry (1.1.1.110 etc), into a list of dataframes
+    # enzyme_df_list = split_by_enzyme(input_df)    #split expanded df by rows, grouped by enzyme entry (1.1.1.110 etc), into a list of dataframes
+    unique_enzymes = set(master_df['entry'].unique()) # create set of unique enzymes
 
-    for enzyme_df in enzyme_df_list:    #loop through list of enzyme dataframes
+    dist_lookup = {} # initialize master dist list
 
-        enzyme_df['Dist'] = '' #initialize distance column
+    for enzyme in unique_enzymes:    #loop through list of enzyme dataframes
+
+        # enzyme_df['Dist'] = '' #initialize distance column
+        enzyme_df = master_df[master_df['entry'] == enzyme]
 
         metric = sim_metric(enzyme_df) #get similarity matrix dataframe
 
@@ -127,10 +131,10 @@ def calculate_dist(input_df):
             start_at += 1 #start at higher index to skip redundancy
 
         avg_dist = sum(dist_list)/len(dist_list) #compute average distance
+        dist_lookup[enzyme] = avg_dist
+        # for _, row in enzyme_df.iterrows():    #loop through enzyme dataframe
+        #     # enzyme_df['Dist'].loc[index] = avg_dist #add averaged distance to each product row of enzyme dataframe
 
-        for index, row in enzyme_df.iterrows():    #loop through enzyme dataframe
-            enzyme_df['Dist'].loc[index] = avg_dist #add averaged distance to each product row of enzyme dataframe
-
-    master_df = pd.concat(enzyme_df_list) #concatenate enzyme dataframes into master_df
+    master_df['dist'] = [dist_lookup[row['entry']] for _, row in master_df.iterrows()]
 
     return master_df
