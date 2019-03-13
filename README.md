@@ -5,7 +5,9 @@ UW-DIRECT Project on metabolite retrosynthetic analysis
 - Aim to utilize data science and software engineering intuition to find, and predict, a plausible metabolic pathway for production of a given molecule with retrosynthetic analysis approach. 
 - Current focus is to find a novel promiscuous substrate for enzymatic transformation.
 
-# team members
+### For thorough explanation and project background --- Check out our [Wiki](https://github.com/theicechol/metamoles/wiki)
+
+# Team Members
 
 #### Ellie (elliej3), Ice (theicechol), Phil (philipjleung), Stephen (blasks), and Yeon Mi (ymhwang414)
 
@@ -65,8 +67,8 @@ Components:
 - Offer different ML models or prediction methods (edited) 
 - Included non-promismuous enzyme in the reaction search (or some non-enzymatic pathway)
 
-![Outline_1](https://github.com/theicechol/metamoles/blob/master/figures/Outline_1.png)
-![Outline_2](https://github.com/theicechol/metamoles/blob/master/figures/Outline_2.png)
+![Outline_1](https://github.com/theicechol/metamoles/blob/master/figures/project_outline1.png)
+![Outline_2](https://github.com/theicechol/metamoles/blob/master/figures/project_outline2.png)
 ![function_outline](https://github.com/theicechol/metamoles/blob/master/figures/function_flowchart.png)
 
 funciton outline will be edited with correct function names and better outlook! 
