@@ -2,14 +2,14 @@
 
 import pandas as pd
 import numpy as np
-#from cpd_inform import cpd_inform
+from cpd_inform import cpd_inform
 
 def create_cpd_info(input_df, col_name='SMILES'):
-    
+
     """Receive a DataFrame and return a dataframe with additional columns named n_C, n_H, ..., DoU, and MW"""
-    
+
     # create an empty funciton with either empty strint '' or NaN by np.nan
-    
+
 #     #df['n_C'] = ''
 #     #df['n_H'] = ''
 #     df['n_O'] = ''
@@ -29,7 +29,7 @@ def create_cpd_info(input_df, col_name='SMILES'):
     DoU = []
     MW = []
     # see df.iterrows()
-    
+
     #for _, row in input_df.iterrows():
     for row in range(input_df.shape[0]):
         mol = input_df[col_name][row]
@@ -62,5 +62,5 @@ def create_cpd_info(input_df, col_name='SMILES'):
     input_df['n_X'] = pd.DataFrame(n_X)
     input_df['DoU'] = pd.DataFrame(DoU)
     input_df['MW'] = pd.DataFrame(MW)
-    
+
     return input_df

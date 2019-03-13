@@ -1,5 +1,5 @@
-# create a function that return the general information of that compound e.g., number of each atom, MW, 
-unsaturation
+# create a function that return the general information of that compound e.g., number of each atom, MW,
+# unsaturation
 
 from rdkit import Chem
 from rdkit.Chem import AllChem
@@ -15,7 +15,7 @@ def count_P(mol):
 def count_S(mol):
     return sum(1 for atom in mol.GetAtoms() if atom.GetAtomicNum() == 16)
 def count_X(mol):
-    return sum(1 for atom in mol.GetAtoms() if atom.GetAtomicNum() == 9 or atom.GetAtomicNum() == 17 or 
+    return sum(1 for atom in mol.GetAtoms() if atom.GetAtomicNum() == 9 or atom.GetAtomicNum() == 17 or
 atom.GetAtomicNum() == 35 or atom.GetAtomicNum() == 53)
 def count_H(mol):
     H = 0
@@ -38,9 +38,9 @@ def DoU(mol):
 from rdkit.Chem.Descriptors import MolWt
 
 def cpd_inform(SMILES):
-    
+
     """A function for getting compound information from SMILES string
-    it received a SMILES string and return a dictionary of information consisted of number of C, H, O , N, P, S, 
+    it received a SMILES string and return a dictionary of information consisted of number of C, H, O , N, P, S,
 X, Degree of Unsaturation and Molecula) Weight"""
 #     info = {}
     info = []
