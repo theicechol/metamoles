@@ -84,10 +84,10 @@ def test_sim_metric():
 
     return "2/2 Tests successful"
 
-def test_main():
+def test_calculate_dist():
 
     df = pd.read_csv('playground_df_cleaned_kegg_with_smiles.csv')
-    test_df = mol_sim.main(df)
+    test_df = mol_sim.calculate_dist(df)
 
     assert isinstance(test_df, pd.DataFrame) == True, """TypeError,
     function should return a dataframe"""
