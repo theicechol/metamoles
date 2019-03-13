@@ -267,6 +267,23 @@ def remove_cofactors(master_df: pd.DataFrame, master_cpd_field: str,
     return clean_df
 
 
+def binarize_enzyme_class(dataframe, column):
+    """
+    binarize_enzyme_class() converts the enzyme class into binary dummy variables
+        that are appended onto the input dataframe
+
+    Args:
+        dataframe (pandas.DataFrame): input dataset
+        column (str): column name containing kegg enzyme id
+
+    Returns:
+        pandas.DataFrame: with seven columns appended for the seven enzyme classes
+    """
+    dataframe['enzyme_class'] = [row[column][0] for _, row in master_df.iterrows()]
+    dataframe = pd.get_dummies(dataframe, columns=['enzyme_class'])
+    return dataframe
+
+
 def create_negative_matches(dataframe: pd.DataFrame,
                             enzyme_field: str, compound_field: str):
     """
