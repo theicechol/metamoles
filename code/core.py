@@ -279,7 +279,7 @@ def binarize_enzyme_class(dataframe, column):
     Returns:
         pandas.DataFrame: with seven columns appended for the seven enzyme classes
     """
-    dataframe['enzyme_class'] = [row[column][0] for _, row in master_df.iterrows()]
+    dataframe['enzyme_class'] = [row[column][0] for _, row in dataframe.iterrows()]
     dataframe = pd.get_dummies(dataframe, columns=['enzyme_class'])
     return dataframe
 
@@ -334,6 +334,29 @@ def create_negative_matches(dataframe: pd.DataFrame,
     negative_df = pd.DataFrame(negative_data)
 
     return positive_df, negative_df
+
+
+def remove_single_cpd_rows(dataframe, enzyme_col, smiles_col):
+    """
+    remove_single_cpd_rows() is meant to be a pre-processing function prior to passing a dataframe to the
+        calculate_dist() function
+
+    Args:
+        dataframe (pandas.Dataframe): input dataset
+        enzyme_col (str): name for column that contains kegg enzyme ids
+        smiles_col (str): name for column that contains smiles string
+
+    Returns:
+        pandas.Dataframe: output dataframe with rows removed in which there was only one product paired with
+            the enzyme entry, enzyme_col renamed 'entry', and smiles_col renamed 'SMILES'
+    """
+    dataframe = dataframe.rename(columns={enzyme_col:'entry', smiles_col:'SMILES'})
+    counts_df = dataframe.groupby('entry').count()
+    singles_df = counts_df[counts_df['SMILES'] == 1]
+    singles = singles_df.index.tolist()
+    bool_mask = [False if row['entry'] in singles else True for _, row in dataframe.iterrows()]
+    clean_df = dataframe[bool_mask]
+    return clean_df
 
 
 def join_pubchem_ids(master_df, pubchem_df, master_join_key, pubchem_join_key,
