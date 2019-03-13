@@ -1,4 +1,5 @@
-# create a function that return the general information of that compound e.g., number of each atom, MW, unsaturation
+# create a function that return the general information of that compound e.g., number of each atom, MW, 
+unsaturation
 
 from rdkit import Chem
 from rdkit.Chem import AllChem
@@ -22,7 +23,9 @@ def count_H(mol):
         H += mol.GetAtomWithIdx(i).GetTotalNumHs(includeNeighbors=True)
     return H
 
+# DoU funciton is dropped out because of compoutational workload
 def DoU(mol):
+    """Calculation of Degree of Unsaturation"""
     C = count_C(mol)
     H = count_H(mol)
     O = count_O(mol)
@@ -38,17 +41,30 @@ def cpd_inform(SMILES):
     
     """A function for getting compound information from SMILES string
     it received a SMILES string and return a dictionary of information consisted of number of C, H, O , N, P, S, 
-X, Degree of Unsaturation and Molecular Weight"""
-    info = {}
+X, Degree of Unsaturation and Molecula) Weight"""
+#     info = {}
+    info = []
     mol = Chem.MolFromSmiles(SMILES)
-    info['n_C'] = float(count_C(mol))
-    info['n_H'] = float(count_H(mol))
-    info['n_O'] = float(count_O(mol))
-    info['n_N'] = float(count_N(mol))
-    info['n_P'] = float(count_P(mol))
-    info['n_S'] = float(count_S(mol))
-    info['n_X'] = float(count_X(mol))
-    info['DoU'] = DoU(mol)
-    info['MW'] = MolWt(mol)
-    
+#     info['n_C'] = float(count_C(mol))
+#     info['n_H'] = float(count_H(mol))
+#     info['n_O'] = float(count_O(mol))
+#     info['n_N'] = float(count_N(mol))
+#     info['n_P'] = float(count_P(mol))
+#     info['n_S'] = float(count_S(mol))
+#     info['n_X'] = float(count_X(mol))
+#     info['DoU'] = (2*info['n_C']+2+info['n_N']+info['n_P']-info['n_X']-info['n_H'])/2
+#     #info['DoU'] = DoU(mol)
+#     info['MW'] = MolWt(mol)
+    info.append(float(count_C(mol)))
+    info.append(float(count_H(mol)))
+    info.append(float(count_O(mol)))
+    info.append(float(count_N(mol)))
+    info.append(float(count_P(mol)))
+    info.append(float(count_S(mol)))
+    info.append(float(count_X(mol)))
+    info.append((2*info[0] + info[3] + info[4] - info[6] - info[1])/2)
+#    info['DoU'] = (2*info['n_C']+2+info['n_N']+info['n_P']-info['n_X']-info['n_H'])/2
+#     #info['DoU'] = DoU(mol)
+    info.append(MolWt(mol))
+#     info['MW'] = MolWt(mol)
     return info
