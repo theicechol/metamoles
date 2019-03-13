@@ -94,12 +94,13 @@ def sim_metric(input_df):
         sim_i_all(input_df, index_i, row_i, metric)
     return metric
 
-def main(input_df):
+def calculate_dist(input_df):
     '''Main method, takes an input dataframe and builds and returns a master 
     dataframe which is the original dataframe, with three additional columns,
     an rdkit Mol column, an rdkit Fingerprint column, and a column which
     describes the average distance of a product row to all the products of the
-    associated enzyme entry.'''
+    associated enzyme entry. Requires the KEGG enzyme entry column to be named 'entry'
+	and the SMILES string column to be named 'SMILES' '''
 
     input_df = fingerprint_products(input_data(input_df))    #expand input df: generate mols from SMILES then generate fingerprints from mols, adding columns for each
 
