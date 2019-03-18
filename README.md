@@ -1,7 +1,7 @@
 # MetaMolES
 ![logo](https://github.com/theicechol/metamoles/blob/master/figures/metamoles_logo.png)
 
-See our poster for the quarter summary [here](https://github.com/theicechol/metamoles/blob/master/figures/MetaMolES-Poster.pdf)
+See our poster for the quarter summary [here](https://github.com/theicechol/metamoles/blob/master/docs/MetaMolES-Poster.pdf)
 
 UW-DIRECT Project on metabolite retrosynthetic analysis
 - Aim to utilize data science and software engineering intuition to find, and predict, a plausible metabolic pathway for production of a given molecule with retrosynthetic analysis approach. 
@@ -69,8 +69,6 @@ Components:
 - Offer different ML models or prediction methods (edited) 
 - Included non-promismuous enzyme in the reaction search (or some non-enzymatic pathway)
 
-![Outline_1](https://github.com/theicechol/metamoles/blob/master/figures/project_outline1.png)
-![Outline_2](https://github.com/theicechol/metamoles/blob/master/figures/project_outline2.png)
-![function_outline](https://github.com/theicechol/metamoles/blob/master/figures/function_flowchart.png)
-
-funciton outline will be edited with correct function names and better outlook! 
+![CoreWorkflow](https://github.com/theicechol/metamoles/blob/master/figures/CoreWorkflow.png)
+![Distance](https://github.com/theicechol/metamoles/blob/master/figures/project_outline2.png)
+![Functions](https://github.com/theicechol/metamoles/blob/master/figures/DataCuration_Query_Workflow.png)
