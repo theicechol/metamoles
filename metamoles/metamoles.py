@@ -1,16 +1,30 @@
 #!/usr/bin/env python
-import Bio
-from Bio.KEGG import REST
-from Bio.KEGG import Enzyme
-import re
-from Bio.KEGG import Compound
 
+import scipy as sp
 import gzip
 import pandas as pd
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import seaborn as sns
+import sklearn
+import Bio
+import rdkit
+import re
+from Bio.KEGG import Compound
+from Bio.KEGG import REST
+from Bio.KEGG import Enzyme
+from rdkit import Chem
+from rdkit.Chem import Draw
+from rdkit.Chem.EState import Fingerprinter
+from rdkit.Chem import Descriptors
+from rdkit.Chem import rdFMCS
+from rdkit.Chem.rdmolops import RDKFingerprint
+from rdkit.Chem.Fingerprints import FingerprintMols
+from rdkit import DataStructs
+from rdkit.Avalon.pyAvalonTools import GetAvalonFP
+from sklearn import linear_model
+from sklearn.model_selection import train_test_split
 
 
 def create_kegg_df(file_path: str, kegg_db: str):
@@ -391,3 +405,193 @@ def join_pubchem_ids(master_df, pubchem_df, master_join_key, pubchem_join_key,
     master_df = master_df.drop(columns=pubchem_join_key)
 
     return master_df
+
+def sid_to_smiles(sid):
+    """Takes a PubChem SID. Returns the associated isomeric SMILES string and PubChem CID.
+
+    Args:
+        sid : The PubChem SID number.
+
+    Returns:
+        str: isomeric smiles.
+        int: Pubchem CID number.
+
+    """
+
+    substance = pc.Substance.from_sid(sid)
+    cid = substance.standardized_cid
+    compound = pc.get_compounds(cid)[0]
+
+    return compound.isomeric_smiles, cid
+
+
+def kegg_df_to_smiles(kegg_df, column_name):
+    """
+    Args:
+        kegg_df : pandas dataframe with SID numbers in the third column
+
+    Returns:
+        kegg_df : modified with a fourth column containing CID and fifth column containing SMILES
+        unsuccessful_list : list of SIDs for which no CID or SMILES were found
+
+    """
+
+    res = []
+    cid_list = []
+    unsuccessful_list = []
+
+    for i in range(len(kegg_df)):
+        # cell index of desired SID
+        sid = kegg_df.loc[i, column_name]
+        try:
+            smile_result = sid_to_smiles(sid)[0]
+            res.append(smile_result)
+            cid_result = sid_to_smiles(sid)[1]
+            cid_list.append(cid_result)
+        except BaseException:
+            res.append('none')
+            cid_list.append('none')
+            unsuccessful_list.append(sid)
+            pass
+
+    kegg_df.insert(0, column='CID', value=cid_list)
+    # Change this 2 to the number where the smiles column should be
+    kegg_df.insert(1, column='SMILES', value=res)
+    # kegg_df.to_csv(r'../datasets/df_cleaned_kegg_with_smiles.csv')
+
+    return kegg_df, unsuccessful_list
+
+def input_data(input_df): #cleans input df and returns neccessary elements
+    '''From the input dataframe, removes rows that do not contain product
+    SMILES strings. Returns the cleaned dataframe'''
+    for index, row in input_df.iterrows():
+
+        if row['SMILES'] == 'none':
+
+            input_df.drop(index, inplace=True)
+
+    return input_df
+
+def fingerprint_products(input_df): #fingerprints all products in a given df
+    '''From the input dataframe, makes a list of rdkit Mol objects and makes a
+    list of rdkit fingerprints generated from those Mol objects. Inserts both
+    lists as new columns and returns the expanded dataframe.'''
+    mol_list = []
+    fp_list = []
+
+    for index, row in input_df.iterrows():
+        mol_list.append(Chem.rdmolfiles.MolFromSmiles(row['SMILES'])) #get mols from SMILES and add mols to list
+        fp_list.append(FingerprintMols.FingerprintMol(Chem.rdmolfiles.MolFromSmiles(row['SMILES']))) #get fingerprints from mols and and fingerprints to list
+
+    input_df['Mol'] = mol_list
+    input_df['Fingerprint'] = fp_list
+
+    return input_df
+
+def sim_i_j(row_i, row_j):
+    """For two given rows of a dataframe, use the rdkit fingerprints to compute
+    TanimotoSimilarity and return the resulting float"""
+    return DataStructs.FingerprintSimilarity(row_i['Fingerprint'], row_j['Fingerprint'], metric=DataStructs.TanimotoSimilarity)
+
+def sim_i_all(input_df, index_i, row_i, metric):
+    """From the input dataframe, check the passed indexes against the DataFrame,
+    and construct a new dataframe which is the similarity matrix of all of the
+    products contained in the dataframe."""
+    for index_j, row_j in input_df.iterrows():
+        if index_j < index_i: #skip redundant rows
+            continue
+        elif index_i == index_j: #autocorrelate rows
+            metric.loc[index_i, index_j] = 1
+        else:
+            metric.loc[index_i, index_j] = sim_i_j(row_i, row_j) #fill matrix with calculated similarity at two positions at once
+            metric.loc[index_j, index_i] = metric.loc[index_i, index_j]
+    return
+
+def sim_metric(input_df):
+    """From an input_df, use sim_i_j and sim_i_all to build and return a
+    similarity matrix dataframe."""
+    metric = pd.DataFrame()
+    for index_i, row_i in input_df.iterrows():
+        sim_i_all(input_df, index_i, row_i, metric)
+    return metric
+
+def calculate_dist(input_df):
+    '''Main method, takes an input dataframe and builds and returns a master
+    dataframe which is the original dataframe, with three additional columns,
+    an rdkit Mol column, an rdkit Fingerprint column, and a column which
+    describes the average distance of a product row to all the products of the
+    associated enzyme entry. Requires the KEGG enzyme entry column to be named 'entry'
+	and the SMILES string column to be named 'SMILES' '''
+
+    master_df = fingerprint_products(input_data(input_df))    #expand input df: generate mols from SMILES then generate fingerprints from mols, adding columns for each
+    # enzyme_df_list = split_by_enzyme(input_df)    #split expanded df by rows, grouped by enzyme entry (1.1.1.110 etc), into a list of dataframes
+    unique_enzymes = set(master_df['entry'].unique()) # create set of unique enzymes
+    dist_lookup = {} # initialize master dist list
+    for enzyme in unique_enzymes:    #loop through list of enzyme dataframes
+        # enzyme_df['Dist'] = '' #initialize distance column
+        enzyme_df = master_df[master_df['entry'] == enzyme]
+        metric = sim_metric(enzyme_df) #get similarity matrix dataframe
+        vals = metric.values #use np array of similarity matrix
+        start_at = 1 #skip autocorrelation
+        dist_list =[] #initialize list
+        for i in range(len(vals)-1): #row of matrix except for last row
+            for j in range(start_at, len(vals)): #col of matrix skipping first column
+                dist_list.append(vals[i][j]) #add distance value to list
+            start_at += 1 #start at higher index to skip redundancy
+        avg_dist = sum(dist_list)/len(dist_list) #compute average distance
+        dist_lookup[enzyme] = avg_dist
+        # for _, row in enzyme_df.iterrows():    #loop through enzyme dataframe
+        #     # enzyme_df['Dist'].loc[index] = avg_dist #add averaged distance to each product row of enzyme dataframe
+    master_df['dist'] = [dist_lookup[row['entry']] for _, row in master_df.iterrows()]
+    return master_df
+
+def query_model(master_df, query_sid):
+    """
+    NOTE: Fields containing enzyme, compound PubChem sid, and SMILES string must be named
+        ['entry', 'PubChem', 'SMILES'] respectively
+    """
+    # get query SMILES string & pair query compound with each unique enzyme in the master DataFrame
+    updated_df = pair_query_compound(master_df, 'entry', 'PubChem', 'SMILES', query_sid)
+    # calculate molecular distances between products of the same enzyme
+    distance_df = calculate_dist(updated_df)
+    # remove any rows that are not the query compound
+    reduced_df = distance_df[distance_df['PubChem'] == query_sid]
+    # get dummy variables to represent enzyme class
+    query_df = binarize_enzyme_class(reduced_df, 'entry')
+    query_df = query_df.reset_index(drop=True)
+    # add in compound features with RDKit
+    cpd_query_df = create_cpd_info(query_df)
+
+    # re-instantiate log reg model
+    feature_df = master_df[['dist', 'enzyme_class_1', 'enzyme_class_2', 'enzyme_class_3',
+           'enzyme_class_4', 'enzyme_class_5', 'enzyme_class_6', 'enzyme_class_7',
+           'n_O', 'n_N', 'n_S', 'n_X', 'DoU']]
+    features = np.array(feature_df) #shape balance array for regression
+    reactions = list(master_df['reacts'])
+    feature_train, feature_test, reaction_train, reaction_test = train_test_split(features, reactions,
+                                                      test_size=0.20, random_state=42)
+    model_1 = linear_model.LogisticRegression(solver='liblinear', penalty='l1', random_state=1, class_weight='balanced')
+    model_1.fit(feature_train, np.ravel(reaction_train))
+
+    # select query features
+    query_feat_df = query_df[['dist', 'enzyme_class_1', 'enzyme_class_2', 'enzyme_class_3',
+           'enzyme_class_4', 'enzyme_class_5', 'enzyme_class_6', 'enzyme_class_7',
+           'n_O', 'n_N', 'n_S', 'n_X', 'DoU']]
+    # query reactive enzymes
+    predictions = model_1.predict(query_feat_df)
+    pred = model_1.predict_proba(query_feat_df)
+
+    # write results to a DataFrame
+    prediction_values = pd.DataFrame(pred)
+    model_descriptive_df = pd.DataFrame()
+#     model_descriptive_df['0']=prediction_values[0]
+    model_descriptive_df['p_reacts']=prediction_values[1]
+    prediction_df = pd.merge(model_descriptive_df, query_df, left_index=True, right_index=True)
+    # sort DataFrame
+    prediction_df = prediction_df.sort_values(by=['p_reacts'], ascending=False)
+    # reset index in output dataframe
+    prediction_df = prediction_df.reset_index(drop=True)
+    # add rank to dataframe
+    prediction_df['rank'] = prediction_df.index + 1
+    # return DataFrame
+    return prediction_df
