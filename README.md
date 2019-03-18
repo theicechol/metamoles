@@ -1,6 +1,8 @@
 # MetaMolES
 ![logo](https://github.com/theicechol/metamoles/blob/master/figures/metamoles_logo.png)
 
+See our poster for the quarter summary [here](https://github.com/theicechol/metamoles/blob/master/figures/MetaMolES-Poster.pdf)
+
 UW-DIRECT Project on metabolite retrosynthetic analysis
 - Aim to utilize data science and software engineering intuition to find, and predict, a plausible metabolic pathway for production of a given molecule with retrosynthetic analysis approach. 
 - Current focus is to find a novel promiscuous substrate for enzymatic transformation.
