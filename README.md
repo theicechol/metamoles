@@ -20,6 +20,14 @@ See our poster for the quarter summary [here](https://github.com/theicechol/meta
 
 ### For thorough explanation, use cases, and project background --- Check out our [Wiki](https://github.com/theicechol/metamoles/wiki)
 
+### Dependencies
+- BioPython
+- PubChemPy
+- RDKit
+- pandas
+- sklearn
+- scipy
+- numpy
 __________
 
 ## Graphical Explanation of our Goal
