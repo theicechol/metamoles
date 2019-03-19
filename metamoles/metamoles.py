@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 
-import scipy as sp
 import gzip
+import sklearn
+import Bio
+import rdkit
+import re
+import scipy as sp
 import pandas as pd
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import seaborn as sns
-import sklearn
-import Bio
-import rdkit
-import re
+import pubchempy as pc
 from Bio.KEGG import Compound
 from Bio.KEGG import REST
 from Bio.KEGG import Enzyme
