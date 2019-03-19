@@ -3,6 +3,8 @@
 
 See our poster for the quarter summary [here](https://github.com/theicechol/metamoles/blob/master/docs/MetaMolES-Poster.pdf)
 
+#### Team Members: Ellie (elliej3), Ice (theicechol), Phil (philipjleung), Stephen (blasks), and Yeon Mi (ymhwang414)
+
 ### Current Work
 
 **UW-DIRECT Project on metabolite retrosynthetic analysis**
@@ -18,10 +20,6 @@ See our poster for the quarter summary [here](https://github.com/theicechol/meta
 
 
 ### For thorough explanation and project background --- Check out our [Wiki](https://github.com/theicechol/metamoles/wiki)
-
-# Team Members
-
-#### Ellie (elliej3), Ice (theicechol), Phil (philipjleung), Stephen (blasks), and Yeon Mi (ymhwang414)
 
 ## Use Cases
 
