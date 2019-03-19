@@ -69,6 +69,11 @@ Components:
 - Offer different ML models or prediction methods (edited) 
 - Included non-promismuous enzyme in the reaction search (or some non-enzymatic pathway)
 
+## A core workflow for MetaMolES
 ![CoreWorkflow](https://github.com/theicechol/metamoles/blob/master/figures/CoreWorkflow.png)
+
+## How we calculate distance of desired compounds with enzyme substrate scope
 ![Distance](https://github.com/theicechol/metamoles/blob/master/figures/project_outline2.png)
+
+## How we curate the data
 ![Functions](https://github.com/theicechol/metamoles/blob/master/figures/DataCuration_Query_Workflow.png)
