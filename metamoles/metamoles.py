@@ -427,12 +427,13 @@ def sid_to_smiles(sid):
 
 
 def kegg_df_to_smiles(kegg_df, column_name):
-    """
+    """ Takes a dataframe and a colunn of PubChem SIDs, returns isomeric SMILES.
     Args:
-        kegg_df : pandas dataframe with SID numbers in the third column
+        kegg_df : pandas dataframe 
+        column_name : name of column in dataframe where SID numbers are stored
 
     Returns:
-        kegg_df : modified with a fourth column containing CID and fifth column containing SMILES
+        kegg_df : modified with CID as column 0 and SMILES as column 1
         unsuccessful_list : list of SIDs for which no CID or SMILES were found
 
     """
