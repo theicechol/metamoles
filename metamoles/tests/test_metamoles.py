@@ -1,6 +1,5 @@
 import metamoles
 from metamoles import *
-#from metamoles import create_cpd_info
 
 import pandas as pd
 
