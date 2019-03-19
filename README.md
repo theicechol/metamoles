@@ -10,11 +10,11 @@ See our poster for the quarter summary [here](https://github.com/theicechol/meta
 - Current focus is to find a novel promiscuous substrate for enzymatic transformation.
 
 ### Future Work
-•	Add compounds with canonical SMILES string but no isomeric SMILES string
-•	Test inclusion of additional features, such as full chemical fingerprints and enzyme descriptors
-•	Explore alternatives models such as SVMs, neural networks, decision trees/random forests, and ensemble methods
-•	Extend approach to include non-promiscuous enzymes
-•	Include simple chemical transformation for biocatalysis application
+-	Add compounds with canonical SMILES string but no isomeric SMILES string
+- Test inclusion of additional features, such as full chemical fingerprints and enzyme descriptors
+-	Explore alternatives models such as SVMs, neural networks, decision trees/random forests, and ensemble methods
+- Extend approach to include non-promiscuous enzymes
+- Include simple chemical transformation for biocatalysis application
 
 
 ### For thorough explanation and project background --- Check out our [Wiki](https://github.com/theicechol/metamoles/wiki)
