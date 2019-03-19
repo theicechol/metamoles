@@ -18,10 +18,12 @@ See our poster for the quarter summary [here](https://github.com/theicechol/meta
 - Extend approach to include non-promiscuous enzymes
 - Include simple chemical transformation for biocatalysis application
 
+### For thorough explanation, use cases, and project background --- Check out our [Wiki](https://github.com/theicechol/metamoles/wiki)
+
+__________
+
 ## Graphical Explanation of our Goal
 ![Expected_Output](https://github.com/theicechol/metamoles/blob/master/figures/Expected_RetroSynthesis_Output.png)
-
-### For thorough explanation, use cases, and project background --- Check out our [Wiki](https://github.com/theicechol/metamoles/wiki)
 
 ## A core workflow for MetaMolES
 ![CoreWorkflow](https://github.com/theicechol/metamoles/blob/master/figures/CoreWorkflow.png)
