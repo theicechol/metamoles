@@ -15,7 +15,7 @@ install:
 - travis_retry pip install -e .
 
 script:
-        - py.test --pyargs https://github.com/theicechol/metamoles --cov-report term-missing --cov=https://github.com/theicechol/metamoles
+        - py.test --pyargs https://github.com/theicechol/metamoles.git --cov-report term-missing --cov=https://github.com/theicechol/metamoles.git
 #- tox
 - coverage report
 
