@@ -1,6 +1,5 @@
 biopython
 PubChemPy
-rdkit
 pandas
 sklearn
 scipy
