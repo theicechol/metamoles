@@ -39,4 +39,4 @@ install:
  - conda install -q -c rdkit rdkit
 
 script:
-  - python metamoles/tests/test_metamoles.py
+  - python ../__init__.py
