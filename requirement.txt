@@ -1,0 +1,7 @@
+biopython
+PubChemPy
+rdkit
+pandas
+sklearn
+scipy
+numpy
