@@ -38,3 +38,6 @@ install:
 
  # install the most recent rdkit package from the RDKit anaconda channel.
  - conda install -q -c rdkit rdkit
+
+script:
+  - python metamoles/tests/test_metamoles.py
