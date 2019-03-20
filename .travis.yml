@@ -1,5 +1,11 @@
+# cloned from rdkit-tutorials
+# adapted from http://conda.pydata.org/docs/travis.html
 language: python
-# cloned from rdkit tutorials
+python:
+ # We don't actually use the Travis Python, but this keeps it organized.
+ - "2.7"
+ - "3.5"
+
 # switch to new infrastructure
 sudo: false
 
