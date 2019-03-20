@@ -1,6 +1,0 @@
-biopython
-PubChemPy
-pandas
-sklearn
-scipy
-numpy
