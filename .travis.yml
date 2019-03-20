@@ -32,11 +32,11 @@ addons:
     - libjpeg-dev
 
 install:
- - conda install -q scikit-learn numpy scipy pandas jupyter matplotlib seaborn
+# - conda install -q scikit-learn numpy scipy pandas jupyter matplotlib seaborn
  # no biopython and PubChemPy
 
  # install the most recent rdkit package from the RDKit anaconda channel.
- - conda install -q -c rdkit rdkit
+# - conda install -q -c rdkit rdkit
 
 script:
-  - python ../__init__.py
+  - python metamoles/metamoles/__init__.py
