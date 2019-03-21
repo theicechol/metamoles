@@ -1,2 +1,4 @@
 # ignore stephen's scratchspace directory
 blasks_scratchspace/
+*.ipynb_checkpoints
+**/__pycache__
