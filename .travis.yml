@@ -32,7 +32,7 @@ addons:
     - libjpeg-dev
 
 install:
- - conda install -q scikit-learn numpy scipy pandas jupyter matplotlib seaborn biopython and PubChemPy
+ - conda install -q scikit-learn numpy scipy pandas jupyter matplotlib seaborn biopython PubChemPy
 
 #  install the most recent rdkit package from the RDKit anaconda channel.
  - conda install -q -c rdkit rdkit
