@@ -5,7 +5,7 @@ setup(
     version = '1.0.0',
     url = 'https://github.com/theicechol/metamoles.git',
     author = 'theicechol',
-    author_email = 'cholpisit@gmail.com’,
+    author_email = 'cholpk@uw.edu',
     description = 'UWDIRECT-MetaMolES',
     packages = find_packages(),
     install_requires = ['numpy >= 1.11.1', 'matplotlib >= 1.5.1'],
