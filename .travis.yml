@@ -41,3 +41,4 @@ install:
 
 script:
   - python notebooks/test_metamoles.py
+  - py.test -s --pyargs metamoles
