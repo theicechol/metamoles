@@ -46,4 +46,4 @@ install:
 script:
  - python notebooks/test_metamoles.py
 #  - py.test -s --pyargs metamoles --with-coverage --cover-package app
- - nosetests --with-coverage
+# - nosetests --with-coverage
