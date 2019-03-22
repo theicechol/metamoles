@@ -465,8 +465,8 @@ def kegg_df_to_smiles(kegg_df, column_name):
     return kegg_df, unsuccessful_list
 
 def input_data(input_df): #cleans input df and returns neccessary elements
-    '''From the input dataframe, removes rows that do not contain product
-    SMILES strings. Returns the cleaned dataframe'''
+    """From the input dataframe, removes rows that do not contain product
+    SMILES strings. Returns the cleaned dataframe"""
     for index, row in input_df.iterrows():
 
         if row['SMILES'] == 'none':
@@ -476,9 +476,9 @@ def input_data(input_df): #cleans input df and returns neccessary elements
     return input_df
 
 def fingerprint_products(input_df): #fingerprints all products in a given df
-    '''From the input dataframe, makes a list of rdkit Mol objects and makes a
+    """From the input dataframe, makes a list of rdkit Mol objects and makes a
     list of rdkit fingerprints generated from those Mol objects. Inserts both
-    lists as new columns and returns the expanded dataframe.'''
+    lists as new columns and returns the expanded dataframe."""
     mol_list = []
     fp_list = []
 
@@ -519,12 +519,12 @@ def sim_metric(input_df):
     return metric
 
 def calculate_dist(input_df):
-    '''Main method, takes an input dataframe and builds and returns a master
+    """Main method, takes an input dataframe and builds and returns a master
     dataframe which is the original dataframe, with three additional columns,
     an rdkit Mol column, an rdkit Fingerprint column, and a column which
     describes the average distance of a product row to all the products of the
     associated enzyme entry. Requires the KEGG enzyme entry column to be named 'entry'
-	and the SMILES string column to be named 'SMILES' '''
+	and the SMILES string column to be named 'SMILES' """
 
     master_df = fingerprint_products(input_data(input_df))    #expand input df: generate mols from SMILES then generate fingerprints from mols, adding columns for each
     # enzyme_df_list = split_by_enzyme(input_df)    #split expanded df by rows, grouped by enzyme entry (1.1.1.110 etc), into a list of dataframes

@@ -9,7 +9,7 @@ from pandas.util.testing import assert_frame_equal
 #Requires playground_df_cleaned_kegg_with_smiles.csv to be in the same directory for tests to pass.
 
 def test_input_data():
-    '''Tests input_data function in metamoles.py'''
+    """Tests input_data function in metamoles.py"""
     input_df = pd.read_csv('playground_df_cleaned_kegg_with_smiles.csv')
     test_df = metamoles.input_data(input_df)
     assert isinstance(test_df, pd.DataFrame) == True, """TypeError,
@@ -18,7 +18,7 @@ def test_input_data():
     return '1/1 tests successful'
 
 def test_fingerprint_products():
-    '''Tests fingerprint_products function in metamoles.py'''
+    """Tests fingerprint_products function in metamoles.py"""
     input_df = pd.read_csv('playground_df_cleaned_kegg_with_smiles.csv')
     test_df = metamoles.input_data(input_df)
     assert isinstance(metamoles.fingerprint_products(test_df), pd.DataFrame) == True, """TypeError,
@@ -27,7 +27,7 @@ def test_fingerprint_products():
     return '1/1 tests successful'
 
 def test_sim_i_j():
-    '''Tests sim_i_j function in metamoles.py'''
+    """Tests sim_i_j function in metamoles.py"""
     input_df = pd.read_csv('playground_df_cleaned_kegg_with_smiles.csv')
     test_df = metamoles.fingerprint_products(metamoles.input_data(input_df))
     A = test_df.iloc[0]
@@ -39,7 +39,7 @@ def test_sim_i_j():
     return '1/1 tests successful'
 
 def test_sim_i_all():
-    '''Test sim_i_all function in metamoles.py'''
+    """Test sim_i_all function in metamoles.py"""
     input_df = pd.read_csv('playground_df_cleaned_kegg_with_smiles.csv')
     test_df = metamoles.fingerprint_products(metamoles.input_data(input_df))
     metric = pd.DataFrame()
@@ -53,7 +53,7 @@ def test_sim_i_all():
     return "3/3 Tests successful"
 
 def test_sim_metric():
-    '''Test sim_i_all function in metamoles.py'''
+    """Test sim_i_all function in metamoles.py"""
     input_df = pd.read_csv('playground_df_cleaned_kegg_with_smiles.csv')
     test_df = metamoles.fingerprint_products(metamoles.input_data(input_df))
     assert isinstance(metamoles.sim_metric(test_df), pd.DataFrame) == True, """TypeError,
@@ -65,7 +65,7 @@ def test_sim_metric():
     return "2/2 Tests successful"
 
 def test_calculate_dist():
-	'''Test calculate_dist function in metamoles.py'''
+	"""Test calculate_dist function in metamoles.py"""
 	df = pd.read_csv('playground_df_cleaned_kegg_with_smiles.csv')
 	test_df = metamoles.calculate_dist(df)
 	assert isinstance(test_df, pd.DataFrame) == True, """TypeError,
@@ -77,7 +77,7 @@ def test_calculate_dist():
 #Tests for the RDKit compound inform functions
 
 def test_cpd_inform():
-	'''Test cpd_inform function in metamoles.py'''
+	"""Test cpd_inform function in metamoles.py"""
 	rapamycin = 'C[C@@H]1CC[C@H]2C[C@@H](/C(=C/C=C/C=C/[C@H](C[C@H](C(=O)[C@@H]([C@@H](/C(=C/[C@H](C(=O)C[C@H](OC(=O)[C@@H]3CCCCN3C(=O)C(=O)[C@@]1(O2)O)[C@H](C)C[C@@H]4CC[C@H]([C@@H](C4)OC)O)C)/C)O)OC)C)C)/C)OC'
 	test = cpd_inform(rapamycin)
 	assert test[0] == 51, "Carbon count is incorrect"
@@ -86,7 +86,7 @@ def test_cpd_inform():
 	return '3/3 Tests successful'
 
 def test_create_cpd_info():
-	'''Test create_cpd_info function in metamoles.py'''
+	"""Test create_cpd_info function in metamoles.py"""
 	df_master = pd.DataFrame(['C([C@@H]1[C@H]([C@@H]([C@H](C(O1)O)O)O)O)O',
 		 'C([C@@H]1[C@@H]([C@@H]([C@H]([C@H](O1)O)O)O)O)O',
 		 'C([C@H]([C@H]([C@@H](C(=O)CO)O)O)O)O',
@@ -103,49 +103,49 @@ def test_create_cpd_info():
 	return '3/3 Tests successful'
 
 def test_count_C():
-	'''Test count_C function in metamoles.py'''
+	"""Test count_C function in metamoles.py"""
 	mol='CC[C@H](C)[C@@H]1NC(=O)[C@H](Cc2ccc(O)cc2)NC(=O)[C@@H](N)CSSC[C@H](NC(=O)[C@H](CC(N)=O)NC(=O)[C@H](CCC(N)=O)NC1=O)C(=O)N3CCC[C@H]3C(=O)N[C@@H](CC(C)C)C(=O)NCC(N)=O'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
 	assert count_C(mol) == 43, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_O():
-	'''Test count_O function in metamoles.py'''
+	"""Test count_O function in metamoles.py"""
 	mol='CC[C@H](C)[C@@H]1NC(=O)[C@H](Cc2ccc(O)cc2)NC(=O)[C@@H](N)CSSC[C@H](NC(=O)[C@H](CC(N)=O)NC(=O)[C@H](CCC(N)=O)NC1=O)C(=O)N3CCC[C@H]3C(=O)N[C@@H](CC(C)C)C(=O)NCC(N)=O'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
 	assert count_O(mol) == 12, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_N():
-	'''Test count_N function in metamoles.py'''
+	"""Test count_N function in metamoles.py"""
 	mol='CC[C@H](C)[C@@H]1NC(=O)[C@H](Cc2ccc(O)cc2)NC(=O)[C@@H](N)CSSC[C@H](NC(=O)[C@H](CC(N)=O)NC(=O)[C@H](CCC(N)=O)NC1=O)C(=O)N3CCC[C@H]3C(=O)N[C@@H](CC(C)C)C(=O)NCC(N)=O'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
 	assert count_N(mol) == 12, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_P():
-	'''Test count_P function in metamoles.py'''
+	"""Test count_P function in metamoles.py"""
 	mol='ClP(Cl)Cl'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
 	assert count_P(mol) == 1, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_S():
-	'''Test count_S function in metamoles.py'''
+	"""Test count_S function in metamoles.py"""
 	mol='CC[C@H](C)[C@@H]1NC(=O)[C@H](Cc2ccc(O)cc2)NC(=O)[C@@H](N)CSSC[C@H](NC(=O)[C@H](CC(N)=O)NC(=O)[C@H](CCC(N)=O)NC1=O)C(=O)N3CCC[C@H]3C(=O)N[C@@H](CC(C)C)C(=O)NCC(N)=O'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
 	assert count_S(mol) == 2, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_X():
-	'''Test count_X function in metamoles.py'''
+	"""Test count_X function in metamoles.py"""
 	mol='ClP(Cl)Cl'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
 	assert count_X(mol) == 3, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_H():
-	'''Test count_H function in metamoles.py'''
+	"""Test count_H function in metamoles.py"""
 	mol='CC[C@H](C)[C@@H]1NC(=O)[C@H](Cc2ccc(O)cc2)NC(=O)[C@@H](N)CSSC[C@H](NC(=O)[C@H](CC(N)=O)NC(=O)[C@H](CCC(N)=O)NC1=O)C(=O)N3CCC[C@H]3C(=O)N[C@@H](CC(C)C)C(=O)NCC(N)=O'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
 	assert count_H(mol) == 66, "ValueError: Count is incorrect"
