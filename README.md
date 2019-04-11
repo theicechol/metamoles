@@ -7,7 +7,9 @@
 
 See our poster for the quarter summary [here](https://github.com/theicechol/metamoles/blob/master/docs/MetaMolES-Poster.pdf)
 
-#### Team Members: Ellie (elliej3), Ice (theicechol), Phil (philipjleung), Stephen (blasks), and Yeon Mi (ymhwang414)
+#### Current Team Members: Ellie (elliej3), Ice (theicechol), Phil (philipjleung)
+
+##### Previous Team Members: Stephen (blasks), and Yeon Mi (ymhwang414)
 
 ### Current Work
 
