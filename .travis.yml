@@ -44,6 +44,8 @@ install:
  - conda install -q -c rdkit rdkit
 # install nose for nosetests in this venv
  - conda install nose
+# intall metamoles.py by setup.py
+ - python setup.py install
 
 script:
 - nosetests
