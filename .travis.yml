@@ -48,7 +48,8 @@ install:
  - python setup.py install
 
 script:
-- nosetests
+# - nosetests
+- py.test -s --pyargs metamoles --cov-report term-missing --cov=metamoles --cov-config .coveragerc
 # - python notebooks/test_metamoles.py
 # - py.test -s --pyargs metamoles --with-coverage --cover-package app
 # - nosetests --exe --with-coverage --cover-package=pyiterable
