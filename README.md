@@ -1,7 +1,7 @@
 # MetaMolES
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.com/metamoles/metamoles.svg?branch=master)](https://travis-ci.com/metamoles/metamoles.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/emissible/metamoles/badge.svg?branch=master)](https://coveralls.io/github/emissible/metamoles?branch=master)
+[![Build Status](https://travis-ci.com/metamoles/metamoles.svg?branch=master)](https://travis-ci.com/metamoles/metamoles)
+[![Coverage Status](https://coveralls.io/repos/github/metamoles/metamoles/badge.svg?branch=master)](https://coveralls.io/github/metamoles/metamoles?branch=master)
 
 ![logo](https://github.com/theicechol/metamoles/blob/master/figures/metamoles_logo.png)
 
