@@ -37,7 +37,7 @@ before_install:
 #    - libjpeg-dev
 
 install:
- - conda install -q scikit-learn numpy scipy pandas jupyter sklearn matplotlib seaborn biopython
+ - conda install -q scikit-learn numpy scipy pandas jupyter matplotlib seaborn biopython
 # install pubchempy through conda
  - conda install -c mcs07 pubchempy
 
