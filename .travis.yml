@@ -2,7 +2,7 @@
 language: python
 python:
  # We don't actually use the Travis Python, but this keeps it organized.
- - "3.5"
+ - "3.6.8"
 
 # switch to new infrastructure
 sudo: false
@@ -49,7 +49,7 @@ install:
 
 script:
 # - nosetests
-- py.test -s --pyargs metamoles --cov-report term-missing --cov=metamoles --cov-config .coveragerc
+# - py.test -s --pyargs metamoles --cov-report term-missing --cov=metamoles --cov-config .coveragerc
 # - python notebooks/test_metamoles.py
 # - py.test -s --pyargs metamoles --with-coverage --cover-package app
 # - nosetests --exe --with-coverage --cover-package=pyiterable
