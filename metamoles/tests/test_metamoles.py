@@ -15,7 +15,7 @@ data_path = os.path.join(metamoles.__path__[0], 'data')
 
 def test_input_data():
     """Tests input_data function in metamoles.py"""
-    input_df = pd.read_csv(data_path + "playground_df_cleaned_kegg_with_smiles.csv")
+    input_df = pd.read_csv(data_path + "/playground_df_cleaned_kegg_with_smiles.csv")
     test_df = metamoles.input_data(input_df)
     assert isinstance(test_df, pd.DataFrame) == True, """TypeError,
     function should return a pandas dataframe"""
@@ -24,7 +24,7 @@ def test_input_data():
 
 def test_fingerprint_products():
     """Tests fingerprint_products function in metamoles.py"""
-    input_df = pd.read_csv(data_path + "playground_df_cleaned_kegg_with_smiles.csv")
+    input_df = pd.read_csv(data_path + "/playground_df_cleaned_kegg_with_smiles.csv")
     test_df = metamoles.input_data(input_df)
     assert isinstance(metamoles.fingerprint_products(test_df), pd.DataFrame) == True, """TypeError,
     function should return a pandas dataframe"""
@@ -111,56 +111,56 @@ def test_count_C():
 	"""Test count_C function in metamoles.py"""
 	mol='CC[C@H](C)[C@@H]1NC(=O)[C@H](Cc2ccc(O)cc2)NC(=O)[C@@H](N)CSSC[C@H](NC(=O)[C@H](CC(N)=O)NC(=O)[C@H](CCC(N)=O)NC1=O)C(=O)N3CCC[C@H]3C(=O)N[C@@H](CC(C)C)C(=O)NCC(N)=O'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
-	assert count_C(mol) == 43, "ValueError: Count is incorrect"
+	assert metamoles.count_C(mol) == 43, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_O():
 	"""Test count_O function in metamoles.py"""
 	mol='CC[C@H](C)[C@@H]1NC(=O)[C@H](Cc2ccc(O)cc2)NC(=O)[C@@H](N)CSSC[C@H](NC(=O)[C@H](CC(N)=O)NC(=O)[C@H](CCC(N)=O)NC1=O)C(=O)N3CCC[C@H]3C(=O)N[C@@H](CC(C)C)C(=O)NCC(N)=O'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
-	assert count_O(mol) == 12, "ValueError: Count is incorrect"
+	assert metamoles.count_O(mol) == 12, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_N():
 	"""Test count_N function in metamoles.py"""
 	mol='CC[C@H](C)[C@@H]1NC(=O)[C@H](Cc2ccc(O)cc2)NC(=O)[C@@H](N)CSSC[C@H](NC(=O)[C@H](CC(N)=O)NC(=O)[C@H](CCC(N)=O)NC1=O)C(=O)N3CCC[C@H]3C(=O)N[C@@H](CC(C)C)C(=O)NCC(N)=O'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
-	assert count_N(mol) == 12, "ValueError: Count is incorrect"
+	assert metamoles.count_N(mol) == 12, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_P():
 	"""Test count_P function in metamoles.py"""
 	mol='ClP(Cl)Cl'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
-	assert count_P(mol) == 1, "ValueError: Count is incorrect"
+	assert metamoles.count_P(mol) == 1, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_S():
 	"""Test count_S function in metamoles.py"""
 	mol='CC[C@H](C)[C@@H]1NC(=O)[C@H](Cc2ccc(O)cc2)NC(=O)[C@@H](N)CSSC[C@H](NC(=O)[C@H](CC(N)=O)NC(=O)[C@H](CCC(N)=O)NC1=O)C(=O)N3CCC[C@H]3C(=O)N[C@@H](CC(C)C)C(=O)NCC(N)=O'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
-	assert count_S(mol) == 2, "ValueError: Count is incorrect"
+	assert metamoles.count_S(mol) == 2, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_X():
 	"""Test count_X function in metamoles.py"""
 	mol='ClP(Cl)Cl'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
-	assert count_X(mol) == 3, "ValueError: Count is incorrect"
+	assert metamoles.count_X(mol) == 3, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_H():
 	"""Test count_H function in metamoles.py"""
 	mol='CC[C@H](C)[C@@H]1NC(=O)[C@H](Cc2ccc(O)cc2)NC(=O)[C@@H](N)CSSC[C@H](NC(=O)[C@H](CC(N)=O)NC(=O)[C@H](CCC(N)=O)NC1=O)C(=O)N3CCC[C@H]3C(=O)N[C@@H](CC(C)C)C(=O)NCC(N)=O'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
-	assert count_H(mol) == 66, "ValueError: Count is incorrect"
+	assert metamoles.count_H(mol) == 66, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_create_kegg_df():
     """Unit tests for create_kegg_df()
     """
-    df1 = metamoles.create_kegg_df("test_kegg_enzyme_records.txt.gz","enzyme")
-    df2 = metamoles.create_kegg_df("test_kegg_compound_records.txt.gz","compound")
+    df1 = metamoles.create_kegg_df(data_path + "/test_kegg_enzyme_records.txt.gz","enzyme")
+    df2 = metamoles.create_kegg_df(data_path + "/test_kegg_compound_records.txt.gz","compound")
     # for enzyme database
     assert df1.shape == (3, 16)
     assert df1.columns.tolist() == ['classname', 'cofactor', 'comment', 'dblinks',
@@ -197,7 +197,7 @@ def test_select_promiscuous_enzymes():
 def test_parse_compound_ids():
     """Unit tests for parse_compound_ids()
     """
-    df = metamoles.create_kegg_df(data + "/test_kegg_enzyme_records.txt.gz","enzyme")
+    df = metamoles.create_kegg_df(data_path + "/test_kegg_enzyme_records.txt.gz","enzyme")
     expected = ['C00071','C00004','C00080','C01450','C00071','C00005',
     'C00080','C00441','C00004','C00005','C00080']
     actual = metamoles.parse_compound_ids(df["product"])
