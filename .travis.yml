@@ -46,7 +46,7 @@ install:
 # install nose for nosetests in this venv
  - conda install nose
 # intall metamoles.py by setup.py
- - python setup.py install
+# - python setup.py install
  
 branches:
     only:
@@ -54,7 +54,7 @@ branches:
     - travis-1
     
 script:
-# - nosetests
+ - nosetests
  - python pytest -s --pyargs metamoles # --cov-report term-missing --cov=metamoles --cov-config .coveragerc
 # - python notebooks/test_metamoles.py
 # - py.test -s --pyargs metamoles --with-coverage --cover-package app
