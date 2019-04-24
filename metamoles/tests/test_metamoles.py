@@ -1,16 +1,21 @@
-import metamoles
-from metamoles import *
+import os
+
 import pandas as pd
+from pandas.util.testing import assert_frame_equal
 from rdkit import Chem
 from rdkit.Chem import AllChem
-from pandas.util.testing import assert_frame_equal
+
+import metamoles
+#from metamoles import *
 
 #Tests for the RDKit molecular similarity functions
-#Requires playground_df_cleaned_kegg_with_smiles.csv to be in the same directory for tests to pass.
+#Requires metamoles/test/playground_df_cleaned_kegg_with_smiles.csv to be in the same directory for tests to pass.
+
+data_path = os.path.join(metamoles.__path__[0], 'data')
 
 def test_input_data():
     """Tests input_data function in metamoles.py"""
-    input_df = pd.read_csv('playground_df_cleaned_kegg_with_smiles.csv')
+    input_df = pd.read_csv(data_path + "/playground_df_cleaned_kegg_with_smiles.csv")
     test_df = metamoles.input_data(input_df)
     assert isinstance(test_df, pd.DataFrame) == True, """TypeError,
     function should return a pandas dataframe"""
@@ -19,7 +24,7 @@ def test_input_data():
 
 def test_fingerprint_products():
     """Tests fingerprint_products function in metamoles.py"""
-    input_df = pd.read_csv('playground_df_cleaned_kegg_with_smiles.csv')
+    input_df = pd.read_csv(data_path + "/playground_df_cleaned_kegg_with_smiles.csv")
     test_df = metamoles.input_data(input_df)
     assert isinstance(metamoles.fingerprint_products(test_df), pd.DataFrame) == True, """TypeError,
     function should return a pandas dataframe"""
@@ -28,7 +33,7 @@ def test_fingerprint_products():
 
 def test_sim_i_j():
     """Tests sim_i_j function in metamoles.py"""
-    input_df = pd.read_csv('playground_df_cleaned_kegg_with_smiles.csv')
+    input_df = pd.read_csv(data_path + "/playground_df_cleaned_kegg_with_smiles.csv")
     test_df = metamoles.fingerprint_products(metamoles.input_data(input_df))
     A = test_df.iloc[0]
     #B = test_df.iloc[1]
@@ -40,7 +45,7 @@ def test_sim_i_j():
 
 def test_sim_i_all():
     """Test sim_i_all function in metamoles.py"""
-    input_df = pd.read_csv('playground_df_cleaned_kegg_with_smiles.csv')
+    input_df = pd.read_csv(data_path + "/playground_df_cleaned_kegg_with_smiles.csv")
     test_df = metamoles.fingerprint_products(metamoles.input_data(input_df))
     metric = pd.DataFrame()
     assert metric.empty == True, """ShapeError, input metric dataframe
@@ -54,7 +59,7 @@ def test_sim_i_all():
 
 def test_sim_metric():
     """Test sim_i_all function in metamoles.py"""
-    input_df = pd.read_csv('playground_df_cleaned_kegg_with_smiles.csv')
+    input_df = pd.read_csv(data_path + "/playground_df_cleaned_kegg_with_smiles.csv")
     test_df = metamoles.fingerprint_products(metamoles.input_data(input_df))
     assert isinstance(metamoles.sim_metric(test_df), pd.DataFrame) == True, """TypeError,
     function should return a dataframe"""
@@ -66,7 +71,7 @@ def test_sim_metric():
 
 def test_calculate_dist():
 	"""Test calculate_dist function in metamoles.py"""
-	df = pd.read_csv('playground_df_cleaned_kegg_with_smiles.csv')
+	df = pd.read_csv(data_path + "/playground_df_cleaned_kegg_with_smiles.csv")
 	test_df = metamoles.calculate_dist(df)
 	assert isinstance(test_df, pd.DataFrame) == True, """TypeError,
 	function should return a dataframe"""
@@ -79,7 +84,7 @@ def test_calculate_dist():
 def test_cpd_inform():
 	"""Test cpd_inform function in metamoles.py"""
 	rapamycin = 'C[C@@H]1CC[C@H]2C[C@@H](/C(=C/C=C/C=C/[C@H](C[C@H](C(=O)[C@@H]([C@@H](/C(=C/[C@H](C(=O)C[C@H](OC(=O)[C@@H]3CCCCN3C(=O)C(=O)[C@@]1(O2)O)[C@H](C)C[C@@H]4CC[C@H]([C@@H](C4)OC)O)C)/C)O)OC)C)C)/C)OC'
-	test = cpd_inform(rapamycin)
+	test = metamoles.cpd_inform(rapamycin)
 	assert test[0] == 51, "Carbon count is incorrect"
 	assert test[1] == 79, "Hydrogen count is incorrect"
 	assert type(test[-1]) == type(1.0), "TypeError: Molecular Weight should be float"
@@ -93,7 +98,7 @@ def test_create_cpd_info():
 
 'C[C@@H]1CC[C@H]2C[C@@H](/C(=C/C=C/C=C/[C@H](C[C@H](C(=O)[C@@H]([C@@H](/C(=C/[C@H](C(=O)C[C@H](OC(=O)[C@@H]3CCCCN3C(=O)C(=O)[C@@]1(O2)O)[C@H](C)C[C@@H]4CC[C@H]([C@@H](C4)OC)O)C)/C)O)OC)C)C)/C)OC']
 , columns=['SMILES'])
-	test = create_cpd_info(df_master)
+	test = metamoles.create_cpd_info(df_master)
 
 	assert test['n_C'][0] == 6, "ValueError: Carbon count is incorrect"
 	assert test['DoU'][3] == 13, "ValueError: Degree of Unsaturation in inaccurate"
@@ -106,56 +111,56 @@ def test_count_C():
 	"""Test count_C function in metamoles.py"""
 	mol='CC[C@H](C)[C@@H]1NC(=O)[C@H](Cc2ccc(O)cc2)NC(=O)[C@@H](N)CSSC[C@H](NC(=O)[C@H](CC(N)=O)NC(=O)[C@H](CCC(N)=O)NC1=O)C(=O)N3CCC[C@H]3C(=O)N[C@@H](CC(C)C)C(=O)NCC(N)=O'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
-	assert count_C(mol) == 43, "ValueError: Count is incorrect"
+	assert metamoles.count_C(mol) == 43, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_O():
 	"""Test count_O function in metamoles.py"""
 	mol='CC[C@H](C)[C@@H]1NC(=O)[C@H](Cc2ccc(O)cc2)NC(=O)[C@@H](N)CSSC[C@H](NC(=O)[C@H](CC(N)=O)NC(=O)[C@H](CCC(N)=O)NC1=O)C(=O)N3CCC[C@H]3C(=O)N[C@@H](CC(C)C)C(=O)NCC(N)=O'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
-	assert count_O(mol) == 12, "ValueError: Count is incorrect"
+	assert metamoles.count_O(mol) == 12, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_N():
 	"""Test count_N function in metamoles.py"""
 	mol='CC[C@H](C)[C@@H]1NC(=O)[C@H](Cc2ccc(O)cc2)NC(=O)[C@@H](N)CSSC[C@H](NC(=O)[C@H](CC(N)=O)NC(=O)[C@H](CCC(N)=O)NC1=O)C(=O)N3CCC[C@H]3C(=O)N[C@@H](CC(C)C)C(=O)NCC(N)=O'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
-	assert count_N(mol) == 12, "ValueError: Count is incorrect"
+	assert metamoles.count_N(mol) == 12, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_P():
 	"""Test count_P function in metamoles.py"""
 	mol='ClP(Cl)Cl'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
-	assert count_P(mol) == 1, "ValueError: Count is incorrect"
+	assert metamoles.count_P(mol) == 1, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_S():
 	"""Test count_S function in metamoles.py"""
 	mol='CC[C@H](C)[C@@H]1NC(=O)[C@H](Cc2ccc(O)cc2)NC(=O)[C@@H](N)CSSC[C@H](NC(=O)[C@H](CC(N)=O)NC(=O)[C@H](CCC(N)=O)NC1=O)C(=O)N3CCC[C@H]3C(=O)N[C@@H](CC(C)C)C(=O)NCC(N)=O'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
-	assert count_S(mol) == 2, "ValueError: Count is incorrect"
+	assert metamoles.count_S(mol) == 2, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_X():
 	"""Test count_X function in metamoles.py"""
 	mol='ClP(Cl)Cl'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
-	assert count_X(mol) == 3, "ValueError: Count is incorrect"
+	assert metamoles.count_X(mol) == 3, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_count_H():
 	"""Test count_H function in metamoles.py"""
 	mol='CC[C@H](C)[C@@H]1NC(=O)[C@H](Cc2ccc(O)cc2)NC(=O)[C@@H](N)CSSC[C@H](NC(=O)[C@H](CC(N)=O)NC(=O)[C@H](CCC(N)=O)NC1=O)C(=O)N3CCC[C@H]3C(=O)N[C@@H](CC(C)C)C(=O)NCC(N)=O'
 	mol=Chem.rdmolfiles.MolFromSmiles(mol)
-	assert count_H(mol) == 66, "ValueError: Count is incorrect"
+	assert metamoles.count_H(mol) == 66, "ValueError: Count is incorrect"
 	return '1/1 Tests successful'
 
 def test_create_kegg_df():
     """Unit tests for create_kegg_df()
     """
-    df1 = metamoles.create_kegg_df("test_kegg_enzyme_records.txt.gz","enzyme")
-    df2 = metamoles.create_kegg_df("test_kegg_compound_records.txt.gz","compound")
+    df1 = metamoles.create_kegg_df(data_path + "/test_kegg_enzyme_records.txt.gz","enzyme")
+    df2 = metamoles.create_kegg_df(data_path + "/test_kegg_compound_records.txt.gz","compound")
     # for enzyme database
     assert df1.shape == (3, 16)
     assert df1.columns.tolist() == ['classname', 'cofactor', 'comment', 'dblinks',
@@ -180,7 +185,7 @@ def test_create_kegg_df():
 def test_select_promiscuous_enzymes():
     """Unit tests for select_promiscuous_enzymes()
     """
-    df = metamoles.create_kegg_df("test_kegg_enzyme_records.txt.gz","enzyme")
+    df = metamoles.create_kegg_df(data_path + "/test_kegg_enzyme_records.txt.gz","enzyme")
     test_prom_df = metamoles.select_promiscuous_enzymes(df)
     expected_column = ['entry', 'reaction', 'product', 'substrate']
     actual_column = test_prom_df.columns.tolist()
@@ -192,7 +197,7 @@ def test_select_promiscuous_enzymes():
 def test_parse_compound_ids():
     """Unit tests for parse_compound_ids()
     """
-    df = metamoles.create_kegg_df("test_kegg_enzyme_records.txt.gz","enzyme")
+    df = metamoles.create_kegg_df(data_path + "/test_kegg_enzyme_records.txt.gz","enzyme")
     expected = ['C00071','C00004','C00080','C01450','C00071','C00005',
     'C00080','C00441','C00004','C00005','C00080']
     actual = metamoles.parse_compound_ids(df["product"])
@@ -203,7 +208,7 @@ def test_parse_compound_ids():
 def test_parse_pubchem_ids():
     """Unit tests for parse_pubchem_ids()
     """
-    compound_df = metamoles.create_kegg_df("test_kegg_compound_records.txt.gz","compound")
+    compound_df = metamoles.create_kegg_df(data_path + "/test_kegg_compound_records.txt.gz","compound")
     PubChemID_list = []
     for _, row in compound_df.iterrows():
         pubchem_id = metamoles.parse_pubchem_ids(row['dblinks'])
@@ -220,7 +225,7 @@ def test_parse_pubchem_ids():
 def test_explode_dataframe():
     """Unit tests for explode_dataframe()
     """
-    df = metamoles.create_kegg_df("test_kegg_enzyme_records.txt.gz","enzyme")
+    df = metamoles.create_kegg_df(data_path + "/test_kegg_enzyme_records.txt.gz","enzyme")
     exploded_df = metamoles.explode_dataframe(df, metamoles.parse_compound_ids,
                                     'product', ['entry'])
     assert exploded_df.shape == (11, 2)
@@ -231,7 +236,7 @@ def test_explode_dataframe():
 def test_create_negative_matches():
     """Unit tests for create_negative_matches()
     """
-    df = metamoles.create_kegg_df("test_kegg_enzyme_records.txt.gz","enzyme")
+    df = metamoles.create_kegg_df(data_path + "/test_kegg_enzyme_records.txt.gz","enzyme")
     exploded_df = metamoles.explode_dataframe(df, metamoles.parse_compound_ids,
                                     'product', ['entry'])
     pos_df, neg_df = metamoles.create_negative_matches(exploded_df, 'entry', 'product')
@@ -244,14 +249,14 @@ def test_create_negative_matches():
 def test_parse_reaction_ids():
     """Unit tests for parse_reaction_ids()
     """
-    df = metamoles.create_kegg_df("test_kegg_enzyme_records.txt.gz","enzyme")
+    df = metamoles.create_kegg_df(data_path + "/test_kegg_enzyme_records.txt.gz","enzyme")
     assert metamoles.parse_reaction_ids(df)==['R00623', 'R00624', 'R07328', 'R01773', 'R01775']
     return
 
 def test_parse_reversible_reactions():
      """Unit tests for parse_reversible_reactions()
      """
-     df = metamoles.create_kegg_df("test_kegg_enzyme_records.txt.gz","enzyme")
+     df = metamoles.create_kegg_df(data_path + "/test_kegg_enzyme_records.txt.gz","enzyme")
      reaction_list = metamoles.parse_reaction_ids(df)
      assert metamoles.parse_reversible_reactions(reaction_list) == reaction_list
      return
@@ -260,7 +265,7 @@ def test_parse_reversible_reactions():
 def test_binarize_enzyme_class():
      """Unit tests for binarize_enzyme_class()
      """
-     df = metamoles.create_kegg_df("test_kegg_enzyme_records.txt.gz","enzyme")
+     df = metamoles.create_kegg_df(data_path + "/test_kegg_enzyme_records.txt.gz","enzyme")
      actual = metamoles.binarize_enzyme_class(df,column="entry").enzyme_class_1.tolist()
      assert actual == [1, 1, 1]
      return
@@ -268,15 +273,15 @@ def test_binarize_enzyme_class():
 def test_remove_single_cpd_rows():
      """Unit tests for remove_single_cpd_rows()
      """
-     smilesdf = pd.read_csv("playground_df_cleaned_kegg_with_smiles.csv")
+     smilesdf = pd.read_csv(data_path + "/playground_df_cleaned_kegg_with_smiles.csv")
      assert metamoles.remove_single_cpd_rows(smilesdf,"entry","SMILES").shape == (50, 6)
      return
 
 def test_join_pubchem_ids():
      """Unit tests for join_pubchem_ids()
      """
-     pubchemdf = metamoles.create_kegg_df("test_kegg_compound_records.txt.gz","compound")
-     masterdf =  metamoles.create_kegg_df("test_kegg_enzyme_records.txt.gz","enzyme")
+     pubchemdf = metamoles.create_kegg_df(data_path + "/test_kegg_compound_records.txt.gz","compound")
+     masterdf =  metamoles.create_kegg_df(data_path + "/test_kegg_enzyme_records.txt.gz","enzyme")
      return
 
 def test_sid_to_smiles():
@@ -285,7 +290,7 @@ def test_sid_to_smiles():
     expected = ['C(CO)N', 'C1CSSC1CCCCC(=O)O']
     actual = []
     for sid in sids:
-        result_smile = sid_to_smiles(sid)
+        result_smile = metamoles.sid_to_smiles(sid)
         assert len(
             result_smile) >= 1, 'SMILES string is very short. Check SMILES.'
         isinstance(result_smile, str), 'SMILES not returned as string.'
@@ -312,7 +317,7 @@ def test_kegg_df_to_smiles():
                                            'Filler',
                                            'Compound Name',
                                            'SID'])
-    result_frame = kegg_df_to_smiles(test_frame, 'SID')
+    result_frame = metamoles.kegg_df_to_smiles(test_frame, 'SID')
     assert_frame_equal(
         result_frame[0], expected_frame), 'Did not generate expected df.'
     return
