@@ -1,1 +1,1 @@
-print("dig dig dig")
+from . import metamoles
