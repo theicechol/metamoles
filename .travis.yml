@@ -45,12 +45,12 @@ install:
  - conda install -q -c rdkit rdkit
 # install nose for nosetests in this venv
  - conda install nose
-# intall metamoles.py by setup.py
+# - intall metamoles.py by setup.py
 # - python setup.py install
 # - pip install pytest
 # - pip install pytest-cov
  - pip install coveralls
- - coverage run --source=metamoles setup.py test
+ - coverage run --source=metamoles
 branches:
     only:
     - master
@@ -58,11 +58,11 @@ branches:
 
 script:
  - nosetests
-# - py.test -s --pyargs metamoles --cov-report term-missing --cov=metamoles --cov-config .coveragerc
+ - py.test -s --pyargs metamoles --cov-report term-missing --cov=speedcom --cov-config .coveragerc
 # - python notebooks/test_metamoles.py
 # - py.test -s --pyargs metamoles --with-coverage --cover-package app
 # - nosetests --exe --with-coverage --cover-package=pyiterable
 
 after_success:
-#    - coverage report
+    - coverage report
     - coveralls
