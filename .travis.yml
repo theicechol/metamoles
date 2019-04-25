@@ -10,9 +10,6 @@ sudo: false
 before_install:
  # to fix package management
  - pip install -U pip
- - pip install pytest
- - pip install pytest-cov
- - pip install coveralls
  - export PYTHONPATH=$PYTHONPATH:$(pwd)
  - python setup.py install
  # download and install miniconda
@@ -50,19 +47,22 @@ install:
  - conda install nose
 # intall metamoles.py by setup.py
 # - python setup.py install
-
+# - pip install pytest
+# - pip install pytest-cov
+ - pip install coveralls
+ - coverage run --source=metamoles setup.py test
 branches:
     only:
     - master
     - travis-1
 
 script:
-# - nosetests
- - py.test -s --pyargs metamoles --cov-report term-missing --cov=metamoles --cov-config .coveragerc
+ - nosetests
+# - py.test -s --pyargs metamoles --cov-report term-missing --cov=metamoles --cov-config .coveragerc
 # - python notebooks/test_metamoles.py
 # - py.test -s --pyargs metamoles --with-coverage --cover-package app
 # - nosetests --exe --with-coverage --cover-package=pyiterable
 
 after_success:
-    - coverage report
+#    - coverage report
     - coveralls
