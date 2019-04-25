@@ -47,8 +47,8 @@ install:
  - conda install nose
 # - intall metamoles.py by setup.py
 # - python setup.py install
-# - pip install pytest
-# - pip install pytest-cov
+ - pip install pytest
+ - pip install pytest-cov
  - pip install coveralls
 # - coverage run --source=metamoles setup.py test
 branches:
