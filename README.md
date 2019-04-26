@@ -1,13 +1,15 @@
 # MetaMolES
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.com/metamoles/metamoles.svg?branch=master)](https://travis-ci.com/metamoles/metamoles.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/emissible/metamoles/badge.svg?branch=master)](https://coveralls.io/github/emissible/metamoles?branch=master)
+[![Build Status](https://travis-ci.com/metamoles/metamoles.svg?branch=master)](https://travis-ci.com/metamoles/metamoles)
+[![Coverage Status](https://coveralls.io/repos/github/metamoles/metamoles/badge.svg?branch=master)](https://coveralls.io/github/metamoles/metamoles?branch=master)
 
 ![logo](https://github.com/theicechol/metamoles/blob/master/figures/metamoles_logo.png)
 
 See our poster for the quarter summary [here](https://github.com/theicechol/metamoles/blob/master/docs/MetaMolES-Poster.pdf)
 
-#### Team Members: Ellie (elliej3), Ice (theicechol), Phil (philipjleung), Stephen (blasks), and Yeon Mi (ymhwang414)
+#### Current Team Members: Ellie (elliej3), Ice (theicechol), Phil (philipjleung)
+
+##### Previous Team Members: Stephen (blasks), and Yeon Mi (ymhwang414)
 
 ### Current Work
 

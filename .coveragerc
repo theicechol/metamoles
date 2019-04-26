@@ -1,0 +1,2 @@
+[run]
+omit = metamoles/tests/*, metamoles/__init__.py, metamoles/tests/__init__.py

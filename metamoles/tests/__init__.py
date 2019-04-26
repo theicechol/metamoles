@@ -1,1 +1,1 @@
-print("test folder")
+from . import test_metamoles
